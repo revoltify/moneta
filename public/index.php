@@ -5,7 +5,19 @@ use Illuminate\Http\Request;
 
 define('LARAVEL_START', microtime(true));
 
-if (file_exists($installer = __DIR__.'/install/index.php')) {
+$installed = false;
+$envPath = __DIR__.'/../.env';
+if (file_exists($envPath)) {
+    $envContent = file_get_contents($envPath);
+    foreach (explode("\n", $envContent) as $line) {
+        if (str_starts_with(trim($line), 'APP_KEY=base64:')) {
+            $installed = true;
+            break;
+        }
+    }
+}
+
+if (file_exists($installer = __DIR__.'/install/index.php') && ! $installed) {
     $uri = parse_url($_SERVER['REQUEST_URI'] ?? '', PHP_URL_PATH);
     $scriptDir = dirname($_SERVER['SCRIPT_NAME']);
 

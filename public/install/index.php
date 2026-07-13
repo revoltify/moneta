@@ -49,6 +49,7 @@ if (! empty($_SERVER['HTTP_HOST'])) {
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && ! $is_installed) {
     $_SESSION['install_post'] = array_merge($_SESSION['install_post'] ?? [], $_POST);
+    unset($_SESSION['install_post']['password'], $_SESSION['install_post']['password_confirmation'], $_SESSION['install_post']['db_password']);
     $submittedToken = $_POST['_token'] ?? '';
 
     if (! hash_equals($token, $submittedToken)) {

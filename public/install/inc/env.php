@@ -84,6 +84,9 @@ function writeEnvFile(string $envPath, array $replacements): void
 
         if (array_key_exists($key, $replacements)) {
             $value = $replacements[$key];
+            if (preg_match('/[\s#]/', $value)) {
+                $value = '"'.str_replace('"', '\\"', $value).'"';
+            }
             $prefix = $export ? 'export ' : '';
             $line = $prefix.$key.'='.$value;
             $updatedKeys[] = $key;
@@ -92,6 +95,9 @@ function writeEnvFile(string $envPath, array $replacements): void
 
     foreach ($replacements as $key => $value) {
         if (! in_array($key, $updatedKeys)) {
+            if (preg_match('/[\s#]/', $value)) {
+                $value = '"'.str_replace('"', '\\"', $value).'"';
+            }
             $lines[] = $key.'='.$value;
         }
     }

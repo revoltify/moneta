@@ -56,6 +56,15 @@ function checkRequirements(): array
         'PHP 8.3 or higher is required'
     );
 
+    $execDisabled = array_map('trim', explode(',', ini_get('disable_functions') ?? ''));
+    $execEnabled = function_exists('exec') && ! in_array('exec', $execDisabled);
+    $requirements[] = checkRequirement(
+        'PHP Function: exec',
+        $execEnabled,
+        $execEnabled ? 'Enabled' : 'Disabled',
+        'Required to run migrations and installer commands'
+    );
+
     $extensions = [
         'BCMath' => ['BCMath', 'Required for mathematical operations'],
         'Ctype' => ['ctype', 'Required by Laravel'],
