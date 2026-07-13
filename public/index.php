@@ -5,6 +5,19 @@ use Illuminate\Http\Request;
 
 define('LARAVEL_START', microtime(true));
 
+if (file_exists($installer = __DIR__.'/install/index.php')) {
+    $uri = parse_url($_SERVER['REQUEST_URI'] ?? '', PHP_URL_PATH);
+    $scriptDir = dirname($_SERVER['SCRIPT_NAME']);
+
+    if (str_ends_with($uri, '/install') || $uri === $scriptDir.'/install') {
+        require $installer;
+        exit;
+    }
+
+    header('Location: '.$scriptDir.'/install');
+    exit;
+}
+
 // Determine if the application is in maintenance mode...
 if (file_exists($maintenance = __DIR__.'/../storage/framework/maintenance.php')) {
     require $maintenance;
