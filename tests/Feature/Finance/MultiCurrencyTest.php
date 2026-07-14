@@ -30,7 +30,7 @@ test('a USD wallet tracks balances in its own currency', function () {
         ->and($usdWallet->refresh()->cached_balance)->toBe(150_000)
         ->and($usdWallet->derivedBalance())->toBe(150_000);
 
-    $this->artisan('finance:verify-balances')->assertSuccessful();
+    $this->artisan('moneta:verify-balances')->assertSuccessful();
 });
 
 test('cross-currency transfers are rejected', function () {

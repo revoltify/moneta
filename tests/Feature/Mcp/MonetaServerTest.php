@@ -4,7 +4,7 @@ use App\Actions\Companies\CreateCompany;
 use App\Actions\Transactions\CreateTransaction;
 use App\Enums\CompanyRole;
 use App\Enums\TransactionType;
-use App\Mcp\Servers\FinanceServer;
+use App\Mcp\Servers\MonetaServer;
 use App\Mcp\Tools\CreateWallet;
 use App\Mcp\Tools\GetIncomeStatement;
 use App\Mcp\Tools\ListTransactions;
@@ -34,7 +34,7 @@ test('record-transaction records an expense and updates the wallet balance', fun
     [$user, $company] = mcpCompany();
     $bank = $company->wallets()->where('name', 'Bank')->firstOrFail();
 
-    $response = FinanceServer::actingAs($user)->tool(RecordTransaction::class, [
+    $response = MonetaServer::actingAs($user)->tool(RecordTransaction::class, [
         'type' => 'expense',
         'wallet' => 'Bank',
         'amount' => '1500.50',
@@ -51,7 +51,7 @@ test('record-transaction records an expense and updates the wallet balance', fun
 test('record-transaction rejects a category of the wrong kind', function () {
     [$user] = mcpCompany();
 
-    $response = FinanceServer::actingAs($user)->tool(RecordTransaction::class, [
+    $response = MonetaServer::actingAs($user)->tool(RecordTransaction::class, [
         'type' => 'income',
         'wallet' => 'Bank',
         'amount' => '100',
@@ -66,7 +66,7 @@ test('record-transfer moves money between wallets', function () {
     $bank = $company->wallets()->where('name', 'Bank')->firstOrFail();
     $cash = $company->wallets()->where('name', 'Cash')->firstOrFail();
 
-    $response = FinanceServer::actingAs($user)->tool(RecordTransfer::class, [
+    $response = MonetaServer::actingAs($user)->tool(RecordTransfer::class, [
         'from_wallet' => 'Bank',
         'to_wallet' => 'Cash',
         'amount' => '1000',
@@ -87,7 +87,7 @@ test('void-transaction restores the wallet balance', function () {
         $company, TransactionType::Income, $bank, 50_000, now(), $income, creator: $user,
     );
 
-    $response = FinanceServer::actingAs($user)->tool(VoidTransaction::class, [
+    $response = MonetaServer::actingAs($user)->tool(VoidTransaction::class, [
         'id' => $transaction->id,
     ]);
 
@@ -103,9 +103,9 @@ test('a member can read but cannot write through mcp tools', function () {
     $company->members()->attach($member, ['role' => CompanyRole::Member->value]);
     $member->switchCompany($company);
 
-    FinanceServer::actingAs($member)->tool(ListWallets::class, [])->assertOk();
+    MonetaServer::actingAs($member)->tool(ListWallets::class, [])->assertOk();
 
-    FinanceServer::actingAs($member)->tool(RecordTransaction::class, [
+    MonetaServer::actingAs($member)->tool(RecordTransaction::class, [
         'type' => 'expense',
         'wallet' => 'Bank',
         'amount' => '100',
@@ -119,7 +119,7 @@ test('tools reject a company the user does not belong to', function () {
     $stranger = User::factory()->create();
     $otherCompany = app(CreateCompany::class)->handle($stranger, 'Other Co');
 
-    FinanceServer::actingAs($user)->tool(ListWallets::class, [
+    MonetaServer::actingAs($user)->tool(ListWallets::class, [
         'company' => $otherCompany->slug,
     ])->assertHasErrors();
 });
@@ -133,7 +133,7 @@ test('get-income-statement reflects recorded transactions', function () {
     app(CreateTransaction::class)->handle($company, TransactionType::Income, $bank, 200_000, now(), $income, creator: $user);
     app(CreateTransaction::class)->handle($company, TransactionType::Expense, $bank, 75_000, now(), $expense, creator: $user);
 
-    $response = FinanceServer::actingAs($user)->tool(GetIncomeStatement::class, []);
+    $response = MonetaServer::actingAs($user)->tool(GetIncomeStatement::class, []);
 
     $response->assertOk()
         ->assertSee('"totalIncome":200000')
@@ -150,7 +150,7 @@ test('list-transactions filters by wallet name', function () {
     app(CreateTransaction::class)->handle($company, TransactionType::Expense, $bank, 10_000, now(), $expense, creator: $user);
     app(CreateTransaction::class)->handle($company, TransactionType::Expense, $cash, 20_000, now(), $expense, creator: $user);
 
-    $response = FinanceServer::actingAs($user)->tool(ListTransactions::class, [
+    $response = MonetaServer::actingAs($user)->tool(ListTransactions::class, [
         'wallet' => 'Cash',
     ]);
 
@@ -160,7 +160,7 @@ test('list-transactions filters by wallet name', function () {
 test('create-wallet and set-budget round-trip', function () {
     [$user, $company] = mcpCompany();
 
-    FinanceServer::actingAs($user)->tool(CreateWallet::class, [
+    MonetaServer::actingAs($user)->tool(CreateWallet::class, [
         'name' => 'Payroll Account',
         'type' => 'bank',
         'opening_balance' => '5000',
@@ -168,7 +168,7 @@ test('create-wallet and set-budget round-trip', function () {
 
     expect($company->wallets()->where('name', 'Payroll Account')->firstOrFail()->cached_balance)->toBe(500_000);
 
-    FinanceServer::actingAs($user)->tool(SetBudget::class, [
+    MonetaServer::actingAs($user)->tool(SetBudget::class, [
         'category' => 'Marketing',
         'amount' => '10000',
         'period' => 'monthly',

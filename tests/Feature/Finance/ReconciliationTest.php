@@ -28,7 +28,7 @@ test('a shortage posts an expense adjustment and the balance matches reality', f
         ->and($bank->refresh()->cached_balance)->toBe(950_000)
         ->and($bank->derivedBalance())->toBe(950_000);
 
-    $this->artisan('finance:verify-balances')->assertSuccessful();
+    $this->artisan('moneta:verify-balances')->assertSuccessful();
 });
 
 test('an overage posts an income adjustment', function () {

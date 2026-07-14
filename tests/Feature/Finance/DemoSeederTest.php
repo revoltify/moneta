@@ -16,7 +16,7 @@ test('the demo seeder produces a fully reconciled set of books', function () {
         ->and(Budget::query()->forCompany($company)->count())->toBe(2)
         ->and(RecurringTransaction::query()->forCompany($company)->count())->toBe(3);
 
-    $this->artisan('finance:verify-balances')->assertSuccessful();
+    $this->artisan('moneta:verify-balances')->assertSuccessful();
 });
 
 test('every finance page renders for the demo owner', function () {

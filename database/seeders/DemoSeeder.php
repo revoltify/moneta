@@ -101,7 +101,7 @@ class DemoSeeder extends Seeder
             ]);
         }
 
-        if (Artisan::call('finance:verify-balances') !== 0) {
+        if (Artisan::call('moneta:verify-balances') !== 0) {
             throw new RuntimeException('Demo seed produced an inconsistent ledger: '.Artisan::output());
         }
 

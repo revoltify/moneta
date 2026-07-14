@@ -7,7 +7,7 @@ use Illuminate\Console\Command;
 
 class ProcessRecurring extends Command
 {
-    protected $signature = 'finance:process-recurring';
+    protected $signature = 'moneta:process-recurring';
 
     protected $description = 'Create transactions for all recurring schedules that are due';
 

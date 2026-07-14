@@ -7,7 +7,7 @@ use Illuminate\Console\Command;
 
 class VerifyBalances extends Command
 {
-    protected $signature = 'finance:verify-balances';
+    protected $signature = 'moneta:verify-balances';
 
     protected $description = 'Verify every wallet cached balance matches the balance derived from its transactions';
 

@@ -45,7 +45,7 @@ Moneta is a company-scoped money management system. Each company has a base curr
 - Wallet and category parameters accept either a numeric id or an exact name.
 - Transaction types: income, expense, transfer, capital_investment, capital_withdrawal. Income/expense require a category of the matching kind; capital moves take no category.
 TEXT)]
-class FinanceServer extends Server
+class MonetaServer extends Server
 {
     protected array $tools = [
         ListWallets::class,

@@ -1,10 +1,10 @@
 <?php
 
-use App\Mcp\Servers\FinanceServer;
+use App\Mcp\Servers\MonetaServer;
 use Laravel\Mcp\Facades\Mcp;
 
 Mcp::oauthRoutes();
 
-Mcp::web('/mcp', FinanceServer::class)
+Mcp::web('/mcp', MonetaServer::class)
     ->middleware(['throttle:60,1', 'auth:api'])
-    ->name('mcp.finance');
+    ->name('mcp.moneta');

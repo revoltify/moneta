@@ -36,7 +36,7 @@ Prefer Compose? Grab [`compose.yaml`](compose.yaml) and run `docker compose up -
 - Multiple companies side by side, each with its own currency and timezone
 - AI agent access via MCP (26 tools) — OAuth or API tokens
 - Audit log, ⌘K global search, dark mode, 2FA and passkeys
-- Integer money storage (no float drift) + `finance:verify-balances` integrity check
+- Integer money storage (no float drift) + `moneta:verify-balances` integrity check
 
 ## Configuration
 

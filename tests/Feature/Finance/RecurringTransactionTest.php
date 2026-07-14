@@ -43,7 +43,7 @@ test('a due recurring transaction creates a transaction and advances the schedul
         ->and($recurring->refresh()->next_run_on->toDateString())
         ->toBe(today()->startOfMonth()->addMonthsNoOverflow(1)->toDateString());
 
-    $this->artisan('finance:verify-balances')->assertSuccessful();
+    $this->artisan('moneta:verify-balances')->assertSuccessful();
 });
 
 test('running the processor twice on the same day is idempotent', function () {
@@ -152,5 +152,5 @@ test('a recurring transfer moves money between wallets', function () {
     expect($bank->refresh()->cached_balance)->toBe(-100_000)
         ->and($cash->refresh()->cached_balance)->toBe(100_000);
 
-    $this->artisan('finance:verify-balances')->assertSuccessful();
+    $this->artisan('moneta:verify-balances')->assertSuccessful();
 });

@@ -205,7 +205,7 @@ test('balances stay consistent after fifty randomized operations', function () {
         };
     }
 
-    $this->artisan('finance:verify-balances')->assertSuccessful();
+    $this->artisan('moneta:verify-balances')->assertSuccessful();
 
     expect($bank->refresh()->cached_balance)->toBe($bank->derivedBalance())
         ->and($cash->refresh()->cached_balance)->toBe($cash->derivedBalance());
