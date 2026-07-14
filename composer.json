@@ -20,7 +20,7 @@
         "laravel/wayfinder": "^0.1.14"
     },
     "require-dev": {
-        "driftingly/rector-laravel": "*",
+        "driftingly/rector-laravel": "^2.5",
         "fakerphp/faker": "^1.24",
         "fruitcake/laravel-debugbar": "^4.4",
         "larastan/larastan": "^3.9",
