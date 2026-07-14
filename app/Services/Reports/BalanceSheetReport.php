@@ -16,11 +16,9 @@ final class BalanceSheetReport
     /**
      * @return array{
      *     assets: list<array{id: int, name: string, amount: int}>,
-     *     liabilities: list<array{id: int, name: string, amount: int}>,
      *     equity: list<array{id: int, name: string, amount: int}>,
      *     retainedEarnings: int,
      *     totalAssets: int,
-     *     totalLiabilities: int,
      *     totalEquity: int
      * }
      */
@@ -62,11 +60,9 @@ final class BalanceSheetReport
 
         return [
             'assets' => $assets,
-            'liabilities' => [],
             'equity' => $equity,
             'retainedEarnings' => $retainedEarnings,
             'totalAssets' => $totalAssets,
-            'totalLiabilities' => 0,
             'totalEquity' => $totalEquity,
         ];
     }

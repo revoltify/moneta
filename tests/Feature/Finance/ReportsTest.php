@@ -62,7 +62,7 @@ test('a voided transaction never appears in reports', function (): void {
     expect($report['totalIncome'])->toBe(0);
 });
 
-test('the balance sheet satisfies assets equal liabilities plus equity', function (): void {
+test('the balance sheet satisfies assets equal equity', function (): void {
     [$user, $company, $bank, $cash, $commission, $hosting] = reportSetup();
 
     resolve(CreateTransaction::class)->handle($company, TransactionType::CapitalInvestment, $bank, 2_000_000, now()->subMonth());
@@ -73,14 +73,14 @@ test('the balance sheet satisfies assets equal liabilities plus equity', functio
 
     $report = resolve(BalanceSheetReport::class)->generate($company, now());
 
-    expect($report['totalAssets'])->toBe($report['totalLiabilities'] + $report['totalEquity'])
+    expect($report['totalAssets'])->toBe($report['totalEquity'])
         ->and($report['totalAssets'])->toBe(2_000_000 + 800_000 - 150_000 - 250_000)
         ->and($report['retainedEarnings'])->toBe(800_000 - 150_000);
 
     $historical = resolve(BalanceSheetReport::class)->generate($company, now()->subMonth()->endOfMonth());
 
     expect($historical['totalAssets'])->toBe(2_000_000)
-        ->and($historical['totalAssets'])->toBe($historical['totalLiabilities'] + $historical['totalEquity']);
+        ->and($historical['totalAssets'])->toBe($historical['totalEquity']);
 });
 
 test('the cash flow net change equals the wallet balance delta and classifies financing', function (): void {

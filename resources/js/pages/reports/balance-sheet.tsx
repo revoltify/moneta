@@ -11,11 +11,9 @@ type Row = { id: number; name: string; amount: number };
 type Props = {
     report: {
         assets: Row[];
-        liabilities: Row[];
         equity: Row[];
         retainedEarnings: number;
         totalAssets: number;
-        totalLiabilities: number;
         totalEquity: number;
     };
     asOf: string;
@@ -74,8 +72,7 @@ export default function BalanceSheetPage({ report, asOf }: Props) {
         return null;
     }
 
-    const balanced =
-        report.totalAssets === report.totalLiabilities + report.totalEquity;
+    const balanced = report.totalAssets === report.totalEquity;
 
     return (
         <>
@@ -112,11 +109,6 @@ export default function BalanceSheetPage({ report, asOf }: Props) {
                             total={report.totalAssets}
                         />
                         <Section
-                            title="Liabilities"
-                            rows={report.liabilities}
-                            total={report.totalLiabilities}
-                        />
-                        <Section
                             title="Equity"
                             rows={report.equity}
                             total={report.totalEquity}
@@ -131,7 +123,7 @@ export default function BalanceSheetPage({ report, asOf }: Props) {
                         <div
                             className={`flex items-center justify-between rounded-lg p-3 text-sm font-medium ${balanced ? 'bg-emerald-50 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300' : 'bg-red-50 text-red-800 dark:bg-red-950 dark:text-red-300'}`}
                         >
-                            <span>Assets = Liabilities + Equity</span>
+                            <span>Assets = Equity</span>
                             <span>
                                 {balanced ? 'Balanced ✓' : 'Out of balance!'}
                             </span>
