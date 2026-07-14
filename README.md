@@ -1,6 +1,8 @@
 ![Moneta dashboard](.github/screenshot.png)
 
-[![tests](https://github.com/revoltify/moneta/workflows/tests/badge.svg)](https://github.com/revoltify/moneta/actions)
+![Laravel 13](https://img.shields.io/badge/Laravel-13-FF2D20?logo=laravel&logoColor=white)
+![PHP 8.3+](https://img.shields.io/badge/PHP-8.3%2B-777BB4?logo=php&logoColor=white)
+[![Tests](https://github.com/revoltify/moneta/workflows/tests/badge.svg)](https://github.com/revoltify/moneta/actions)
 
 ---
 
@@ -38,28 +40,7 @@ Prefer Compose? Grab [`compose.yaml`](compose.yaml) and run `docker compose up -
 
 ## Configuration
 
-**Docker** is configured with environment variables. **Shared hosting and manual installs** don't use these — the install wizard writes your `.env` (URL, app key, database, admin account); edit `.env` directly for anything else.
-
-### Docker environment variables
-
-Everything is optional — the container works with zero configuration.
-
-| Variable | Default | Purpose |
-|---|---|---|
-| `APP_URL` | `http://localhost:8080` | Public URL of your instance |
-| `APP_KEY` | auto-generated, persisted in volume | Encryption key |
-| `MONETA_ADMIN_NAME` | `Admin` | Admin name (first boot only) |
-| `MONETA_ADMIN_EMAIL` | `admin@admin.com` | Admin email (first boot only) |
-| `MONETA_ADMIN_PASSWORD` | `12345678` | Admin password (first boot only) |
-| `MONETA_COMPANY` | `Demo Company` | First company name (first boot only) |
-| `DB_CONNECTION` | `sqlite` | Set `mysql` / `pgsql` + the usual `DB_*` vars for an external database |
-
-### Good to know (Docker)
-
-- **One volume is your entire state**: `/app/storage` holds the SQLite database, app key and OAuth keys. Back it up; never delete it.
-- First boot initializes everything (keys, database, admin account). Restarts are idempotent.
-- The scheduler (recurring transactions) runs inside the container via cron — nothing extra to set up.
-- For HTTPS, put the container behind your reverse proxy (Caddy, Traefik, nginx). Forwarded headers are trusted.
+Everything works with zero configuration. For tweaks, see [`.env.example`](.env.example) — Docker takes the same variables as container environment, everyone else edits `.env` (the install wizard writes it for you).
 
 ## Shared Hosting
 
