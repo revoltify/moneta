@@ -43,8 +43,8 @@ jobs:
             - name: Prune Dev Dependencies
               run: composer install --no-dev --no-interaction --prefer-dist --optimize-autoloader
 
-            - name: Clean Build Artifacts
-              run: php artisan optimize:clear && rm -f .env
+            - name: Remove Build Environment File
+              run: rm -f .env
 
             - name: Assemble Release Zip
               run: |
