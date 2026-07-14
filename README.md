@@ -21,7 +21,7 @@ docker run -d --name moneta \
 
 Open http://localhost:8080 and log in with `admin@admin.com` / `12345678` (change it in *Settings → Security*).
 
-Prefer Compose? Grab [`compose.yaml`](compose.yaml) and run `docker compose up -d`. No Docker? See [manual installation](#manual-installation).
+Prefer Compose? Grab [`compose.yaml`](compose.yaml) and run `docker compose up -d`. On shared hosting? See [shared hosting](#shared-hosting). No Docker? See [manual installation](#manual-installation).
 
 ## Features
 
@@ -38,9 +38,11 @@ Prefer Compose? Grab [`compose.yaml`](compose.yaml) and run `docker compose up -
 
 ## Configuration
 
-### Environment variables
+**Docker** is configured with environment variables. **Shared hosting and manual installs** don't use these — the install wizard writes your `.env` (URL, app key, database, admin account); edit `.env` directly for anything else.
 
-Everything is optional — the Docker container works with zero configuration.
+### Docker environment variables
+
+Everything is optional — the container works with zero configuration.
 
 | Variable | Default | Purpose |
 |---|---|---|
@@ -52,12 +54,28 @@ Everything is optional — the Docker container works with zero configuration.
 | `MONETA_COMPANY` | `Demo Company` | First company name (first boot only) |
 | `DB_CONNECTION` | `sqlite` | Set `mysql` / `pgsql` + the usual `DB_*` vars for an external database |
 
-### Good to know
+### Good to know (Docker)
 
 - **One volume is your entire state**: `/app/storage` holds the SQLite database, app key and OAuth keys. Back it up; never delete it.
 - First boot initializes everything (keys, database, admin account). Restarts are idempotent.
 - The scheduler (recurring transactions) runs inside the container via cron — nothing extra to set up.
 - For HTTPS, put the container behind your reverse proxy (Caddy, Traefik, nginx). Forwarded headers are trusted.
+
+## Shared Hosting
+
+No SSH, Composer or Node needed — every release ships a prebuilt zip with vendor and frontend assets included.
+
+1. Download `moneta-vX.Y.Z.zip` from the [latest release](https://github.com/revoltify/moneta/releases/latest)
+2. Upload and extract it on your host, point your domain's document root at the `public/` directory
+3. Open your site — the install wizard walks you through requirements, database setup (SQLite, MySQL, MariaDB, PostgreSQL or SQL Server), and your admin account
+
+Add the scheduler in your hosting panel's cron section:
+
+```
+* * * * * php /path/to/moneta/artisan schedule:run >> /dev/null 2>&1
+```
+
+To upgrade, extract the new release over the old files — your `.env`, database and `storage/` state are never part of the zip.
 
 ## Manual Installation
 
@@ -113,7 +131,7 @@ php artisan tinker --execute 'App\Models\User::first()->update(["password" => "n
 
 **Can multiple people use it?** No — Moneta is intentionally single-user. One admin, multiple companies.
 
-**Which databases are supported?** SQLite (default, zero-config), MySQL and PostgreSQL.
+**Which databases are supported?** SQLite (default, zero-config), MySQL, MariaDB, PostgreSQL and SQL Server.
 
 ---
 
