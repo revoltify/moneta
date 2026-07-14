@@ -53,6 +53,8 @@ php artisan moneta:install \
     ${MONETA_COMPANY:+--company="$MONETA_COMPANY"} \
     || true
 
+[ -f storage/installed ] || touch storage/installed
+
 php artisan optimize:clear
 php artisan optimize
 
