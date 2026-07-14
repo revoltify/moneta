@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Services\Reports;
 
 use App\Enums\TransactionStatus;
@@ -9,7 +11,7 @@ use App\Models\Wallet;
 use Carbon\CarbonInterface;
 use Illuminate\Support\Facades\DB;
 
-class BalanceSheetReport
+final class BalanceSheetReport
 {
     /**
      * @return array{

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Actions\Wallets;
 
 use App\Actions\Categories\CreateCategory;
@@ -12,7 +14,7 @@ use App\Models\User;
 use App\Models\Wallet;
 use Illuminate\Support\Facades\DB;
 
-class ReconcileWallet
+final class ReconcileWallet
 {
     public const string ADJUSTMENT_CATEGORY = 'Balance Adjustment';
 

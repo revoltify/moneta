@@ -1,12 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Support;
 
 use App\Models\Company;
 use App\Models\Transaction;
 use Illuminate\Database\Eloquent\Builder;
 
-class TransactionFilters
+final class TransactionFilters
 {
     /**
      * @param  array{type?: string, wallet_id?: int|string, category_id?: int|string, from?: string, to?: string, search?: string, status?: string}  $filters

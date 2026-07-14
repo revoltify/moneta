@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Mcp\Tools;
 
 use App\Actions\Categories\UpdateCategory as UpdateCategoryAction;
@@ -9,7 +11,7 @@ use Laravel\Mcp\Request;
 use Laravel\Mcp\Response;
 use Laravel\Mcp\Server\Tool;
 
-class UpdateCategory extends Tool
+final class UpdateCategory extends Tool
 {
     use InteractsWithCompany;
 

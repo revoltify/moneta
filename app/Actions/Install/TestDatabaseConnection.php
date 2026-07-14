@@ -1,10 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Actions\Install;
 
 use Illuminate\Support\Facades\DB;
 
-class TestDatabaseConnection
+final class TestDatabaseConnection
 {
     /**
      * @param  array<string, mixed>  $overrides

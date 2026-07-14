@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Actions\Companies;
 
 use App\Actions\Categories\SetupDefaultCategories;
@@ -8,7 +10,7 @@ use App\Models\Company;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
 
-class CreateCompany
+final class CreateCompany
 {
     public function __construct(
         private SetupDefaultWallets $setupDefaultWallets,

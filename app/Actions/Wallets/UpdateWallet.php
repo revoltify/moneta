@@ -1,12 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Actions\Wallets;
 
 use App\Enums\WalletType;
 use App\Models\Wallet;
 use Illuminate\Support\Facades\DB;
 
-class UpdateWallet
+final class UpdateWallet
 {
     public function handle(
         Wallet $wallet,

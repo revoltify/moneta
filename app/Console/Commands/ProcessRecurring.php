@@ -1,11 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Console\Commands;
 
 use App\Actions\Recurring\ProcessRecurringTransactions;
 use Illuminate\Console\Command;
 
-class ProcessRecurring extends Command
+final class ProcessRecurring extends Command
 {
     protected $signature = 'moneta:process-recurring';
 

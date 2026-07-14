@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Requests\Finance;
 
 use App\Enums\CategoryKind;
@@ -8,7 +10,7 @@ use App\Support\Money;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
-class SaveBudgetRequest extends FormRequest
+final class SaveBudgetRequest extends FormRequest
 {
     use ResolvesCurrentCompany;
 

@@ -1,11 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Actions\Categories;
 
 use App\Enums\CategoryKind;
 use App\Models\Company;
 
-class SetupDefaultCategories
+final class SetupDefaultCategories
 {
     private const array DEFAULTS = [
         CategoryKind::Income->value => [

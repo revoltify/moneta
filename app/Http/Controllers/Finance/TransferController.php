@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers\Finance;
 
 use App\Actions\Transactions\CreateTransfer;
@@ -11,7 +13,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Carbon;
 use Inertia\Inertia;
 
-class TransferController extends Controller
+final class TransferController extends Controller
 {
     public function store(SaveTransferRequest $request, Company $current_company, CreateTransfer $createTransfer): RedirectResponse
     {

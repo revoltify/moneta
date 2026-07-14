@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Actions\Recurring;
 
 use App\Actions\Transactions\CreateTransaction;
@@ -11,7 +13,7 @@ use Carbon\CarbonInterface;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
 
-class ProcessRecurringTransactions
+final class ProcessRecurringTransactions
 {
     private const int MAX_CATCH_UP_RUNS = 36;
 

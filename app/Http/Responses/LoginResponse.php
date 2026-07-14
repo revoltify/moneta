@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Responses;
 
 use App\Http\Responses\Concerns\RedirectsToCurrentCompany;
@@ -8,7 +10,7 @@ use Laravel\Fortify\Contracts\LoginResponse as LoginResponseContract;
 use Laravel\Fortify\Fortify;
 use Symfony\Component\HttpFoundation\Response;
 
-class LoginResponse implements LoginResponseContract
+final class LoginResponse implements LoginResponseContract
 {
     use RedirectsToCurrentCompany;
 

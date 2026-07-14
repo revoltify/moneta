@@ -1,10 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Actions\Install;
 
 use App\Support\EnvWriter;
 
-class WriteEnvironmentFile
+final class WriteEnvironmentFile
 {
     public function __construct(private EnvWriter $envWriter) {}
 

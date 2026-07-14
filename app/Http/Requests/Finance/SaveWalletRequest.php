@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Requests\Finance;
 
 use App\Enums\WalletType;
@@ -9,7 +11,7 @@ use App\Support\Money;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
-class SaveWalletRequest extends FormRequest
+final class SaveWalletRequest extends FormRequest
 {
     use ResolvesCurrentCompany;
 

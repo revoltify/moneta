@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Mcp\Tools;
 
 use App\Actions\Wallets\CreateWallet as CreateWalletAction;
@@ -12,7 +14,7 @@ use Laravel\Mcp\Request;
 use Laravel\Mcp\Response;
 use Laravel\Mcp\Server\Tool;
 
-class CreateWallet extends Tool
+final class CreateWallet extends Tool
 {
     use InteractsWithCompany;
 

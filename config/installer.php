@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 return [
 
     'installed' => env('MONETA_INSTALLED'),

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Actions\Transactions;
 
 use App\Models\Category;
@@ -10,7 +12,7 @@ use Carbon\CarbonInterface;
 use Illuminate\Support\Facades\DB;
 use InvalidArgumentException;
 
-class UpdateTransaction
+final class UpdateTransaction
 {
     public function __construct(private ApplyTransactionBalance $applyBalance) {}
 

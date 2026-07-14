@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Actions\Transactions;
 
 use App\Enums\TransactionStatus;
@@ -7,7 +9,7 @@ use App\Models\Transaction;
 use Illuminate\Support\Facades\DB;
 use InvalidArgumentException;
 
-class VoidTransaction
+final class VoidTransaction
 {
     public function __construct(private ApplyTransactionBalance $applyBalance) {}
 

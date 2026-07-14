@@ -1,10 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Actions\Wallets;
 
 use App\Models\Wallet;
 
-class ArchiveWallet
+final class ArchiveWallet
 {
     public function handle(Wallet $wallet): Wallet
     {

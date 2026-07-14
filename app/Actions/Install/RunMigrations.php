@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Actions\Install;
 
 use App\Actions\Setup\EnsurePersonalAccessClient;
@@ -8,7 +10,7 @@ use Laravel\Passport\Passport;
 use phpseclib3\Crypt\RSA;
 use RuntimeException;
 
-class RunMigrations
+final class RunMigrations
 {
     public function __construct(private EnsurePersonalAccessClient $ensurePersonalAccessClient) {}
 

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Concerns;
 
 use App\Models\Company;
@@ -30,7 +32,8 @@ trait GeneratesUniqueCompanySlugs
             ->map(function (string $slug) use ($defaultSlug): ?int {
                 if ($slug === $defaultSlug) {
                     return 0;
-                } elseif (preg_match('/^'.preg_quote($defaultSlug, '/').'-(\d+)$/', $slug, $matches)) {
+                }
+                if (preg_match('/^'.preg_quote($defaultSlug, '/').'-(\d+)$/', $slug, $matches)) {
                     return (int) $matches[1];
                 }
 

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Rules;
 
 use Closure;
@@ -8,7 +10,7 @@ use Illuminate\Routing\Route as RouteElement;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Translation\PotentiallyTranslatedString;
 
-class CompanyName implements ValidationRule
+final class CompanyName implements ValidationRule
 {
     /**
      * Run the validation rule.
@@ -17,7 +19,7 @@ class CompanyName implements ValidationRule
      */
     public function validate(string $attribute, mixed $value, Closure $fail): void
     {
-        $name = strtolower(trim($value));
+        $name = mb_strtolower(trim($value));
 
         if (in_array($name, $this->reservedNames(), true)) {
             $fail(__('This company name is reserved and cannot be used.'));
@@ -29,7 +31,7 @@ class CompanyName implements ValidationRule
      *
      * @return array<int, string>
      */
-    protected function reservedNames(): array
+    private function reservedNames(): array
     {
         return once(fn () => collect($this->routesPrefixes())
             ->merge([
@@ -373,7 +375,7 @@ class CompanyName implements ValidationRule
      *
      * @return array<int, string>
      */
-    protected function routesPrefixes(): array
+    private function routesPrefixes(): array
     {
         return collect(Route::getRoutes()->getRoutes())
             ->map(fn (RouteElement $route) => $route->uri)

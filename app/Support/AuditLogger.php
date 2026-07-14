@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Support;
 
 use App\Models\AuditLog;
@@ -7,7 +9,7 @@ use App\Models\Company;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Model;
 
-class AuditLogger
+final class AuditLogger
 {
     /**
      * @param  array<string, mixed>  $changes

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Actions\Wallets;
 
 use App\Enums\WalletType;
@@ -7,7 +9,7 @@ use App\Models\Company;
 use App\Models\User;
 use App\Models\Wallet;
 
-class CreateWallet
+final class CreateWallet
 {
     public function handle(
         Company $company,

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Actions\Categories;
 
 use App\Enums\CategoryKind;
@@ -7,7 +9,7 @@ use App\Models\Category;
 use App\Models\Company;
 use InvalidArgumentException;
 
-class CreateCategory
+final class CreateCategory
 {
     public function handle(
         Company $company,

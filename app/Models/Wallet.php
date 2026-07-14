@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Models;
 
 use App\Concerns\BelongsToCompany;
@@ -28,7 +30,7 @@ use Illuminate\Support\Carbon;
  * @property-read Company $company
  */
 #[Fillable(['company_id', 'name', 'type', 'account_number', 'icon', 'color', 'currency', 'opening_balance', 'cached_balance', 'archived_at'])]
-class Wallet extends Model
+final class Wallet extends Model
 {
     /** @use HasFactory<WalletFactory> */
     use BelongsToCompany, HasFactory;

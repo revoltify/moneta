@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers\Finance;
 
 use App\Actions\Categories\ArchiveCategory;
@@ -18,7 +20,7 @@ use Inertia\Inertia;
 use Inertia\Response;
 use RuntimeException;
 
-class CategoryController extends Controller
+final class CategoryController extends Controller
 {
     public function index(Request $request, Company $current_company): Response
     {

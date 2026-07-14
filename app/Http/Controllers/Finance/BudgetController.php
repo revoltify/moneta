@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers\Finance;
 
 use App\Actions\Budgets\EvaluateBudgetAlert;
@@ -13,7 +15,7 @@ use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Inertia\Response;
 
-class BudgetController extends Controller
+final class BudgetController extends Controller
 {
     public function index(Request $request, Company $current_company, EvaluateBudgetAlert $evaluator): Response
     {

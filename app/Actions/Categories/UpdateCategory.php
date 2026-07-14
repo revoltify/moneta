@@ -1,10 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Actions\Categories;
 
 use App\Models\Category;
 
-class UpdateCategory
+final class UpdateCategory
 {
     public function handle(
         Category $category,

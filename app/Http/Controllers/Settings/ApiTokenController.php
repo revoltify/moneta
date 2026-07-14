@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers\Settings;
 
 use App\Actions\Setup\EnsurePersonalAccessClient;
@@ -10,7 +12,7 @@ use Inertia\Inertia;
 use Inertia\Response;
 use Laravel\Passport\Token;
 
-class ApiTokenController extends Controller
+final class ApiTokenController extends Controller
 {
     public function index(Request $request): Response
     {

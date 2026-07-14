@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Mcp\Tools;
 
 use App\Mcp\Concerns\InteractsWithCompany;
@@ -10,7 +12,7 @@ use Laravel\Mcp\Request;
 use Laravel\Mcp\Response;
 use Laravel\Mcp\Server\Tool;
 
-class ToggleRecurring extends Tool
+final class ToggleRecurring extends Tool
 {
     use InteractsWithCompany;
 

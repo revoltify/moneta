@@ -1,11 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Console\Commands;
 
 use App\Models\Wallet;
 use Illuminate\Console\Command;
 
-class VerifyBalances extends Command
+final class VerifyBalances extends Command
 {
     protected $signature = 'moneta:verify-balances';
 

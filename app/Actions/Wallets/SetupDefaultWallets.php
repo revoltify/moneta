@@ -1,11 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Actions\Wallets;
 
 use App\Enums\WalletType;
 use App\Models\Company;
 
-class SetupDefaultWallets
+final class SetupDefaultWallets
 {
     private const array DEFAULTS = [
         ['Bank', WalletType::Bank, 'landmark', '#2563eb'],

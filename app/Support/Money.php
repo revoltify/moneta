@@ -1,10 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Support;
 
 use InvalidArgumentException;
 
-class Money
+final class Money
 {
     public const CURRENCIES = [
         'BDT' => '৳',

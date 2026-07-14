@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Actions\Install;
 
 use App\Actions\Companies\CreateCompany;
@@ -8,7 +10,7 @@ use App\Support\InstallationState;
 use Illuminate\Support\Facades\DB;
 use InvalidArgumentException;
 
-class CreateAdminAccount
+final class CreateAdminAccount
 {
     public function __construct(
         private CreateCompany $createCompany,

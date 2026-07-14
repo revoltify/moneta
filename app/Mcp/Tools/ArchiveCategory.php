@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Mcp\Tools;
 
 use App\Actions\Categories\ArchiveCategory as ArchiveCategoryAction;
@@ -9,7 +11,7 @@ use Laravel\Mcp\Request;
 use Laravel\Mcp\Response;
 use Laravel\Mcp\Server\Tool;
 
-class ArchiveCategory extends Tool
+final class ArchiveCategory extends Tool
 {
     use InteractsWithCompany;
 

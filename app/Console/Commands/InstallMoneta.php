@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Console\Commands;
 
 use App\Actions\Install\CreateAdminAccount;
@@ -7,7 +9,7 @@ use App\Models\User;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Validator;
 
-class InstallMoneta extends Command
+final class InstallMoneta extends Command
 {
     protected $signature = 'moneta:install
         {--name=Admin : Admin name}

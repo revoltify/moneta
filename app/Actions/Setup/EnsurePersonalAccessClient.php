@@ -1,12 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Actions\Setup;
 
 use Laravel\Passport\Client;
 use Laravel\Passport\ClientRepository;
 use RuntimeException;
 
-class EnsurePersonalAccessClient
+final class EnsurePersonalAccessClient
 {
     public function __construct(private ClientRepository $clients) {}
 

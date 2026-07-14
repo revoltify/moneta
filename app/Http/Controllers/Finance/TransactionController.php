@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers\Finance;
 
 use App\Actions\Budgets\EvaluateBudgetAlert;
@@ -22,7 +24,7 @@ use Illuminate\Support\Carbon;
 use Inertia\Inertia;
 use Inertia\Response;
 
-class TransactionController extends Controller
+final class TransactionController extends Controller
 {
     public function index(Request $request, Company $current_company): Response
     {

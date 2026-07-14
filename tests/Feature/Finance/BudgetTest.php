@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use App\Actions\Budgets\EvaluateBudgetAlert;
 use App\Actions\Categories\CreateCategory;
 use App\Actions\Companies\CreateCompany;

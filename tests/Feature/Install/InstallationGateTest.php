@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 beforeEach(function () {
     $this->flag = sys_get_temp_dir().'/moneta-installed-'.uniqid();
     config(['installer.installed' => null, 'installer.flag_path' => $this->flag]);

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Mcp\Tools;
 
 use App\Enums\CategoryKind;
@@ -12,7 +14,7 @@ use Laravel\Mcp\Server\Tool;
 use Laravel\Mcp\Server\Tools\Annotations\IsDestructive;
 
 #[IsDestructive]
-class RemoveBudget extends Tool
+final class RemoveBudget extends Tool
 {
     use InteractsWithCompany;
 

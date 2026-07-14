@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers\Finance;
 
 use App\Enums\RecurrenceFrequency;
@@ -14,7 +16,7 @@ use Illuminate\Support\Carbon;
 use Inertia\Inertia;
 use Inertia\Response;
 
-class RecurringTransactionController extends Controller
+final class RecurringTransactionController extends Controller
 {
     public function index(Request $request, Company $current_company): Response
     {

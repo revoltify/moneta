@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Mcp\Tools;
 
 use App\Actions\Budgets\EvaluateBudgetAlert;
@@ -12,7 +14,7 @@ use Laravel\Mcp\Server\Tool;
 use Laravel\Mcp\Server\Tools\Annotations\IsReadOnly;
 
 #[IsReadOnly]
-class ListBudgets extends Tool
+final class ListBudgets extends Tool
 {
     use InteractsWithCompany;
 

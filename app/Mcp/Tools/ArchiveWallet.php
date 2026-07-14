@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Mcp\Tools;
 
 use App\Actions\Wallets\ArchiveWallet as ArchiveWalletAction;
@@ -9,7 +11,7 @@ use Laravel\Mcp\Request;
 use Laravel\Mcp\Response;
 use Laravel\Mcp\Server\Tool;
 
-class ArchiveWallet extends Tool
+final class ArchiveWallet extends Tool
 {
     use InteractsWithCompany;
 

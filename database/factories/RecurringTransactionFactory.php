@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Database\Factories;
 
 use App\Enums\CategoryKind;
@@ -14,7 +16,7 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 /**
  * @extends Factory<RecurringTransaction>
  */
-class RecurringTransactionFactory extends Factory
+final class RecurringTransactionFactory extends Factory
 {
     public function definition(): array
     {

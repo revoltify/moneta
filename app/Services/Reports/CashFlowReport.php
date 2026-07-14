@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Services\Reports;
 
 use App\Enums\TransactionStatus;
@@ -9,7 +11,7 @@ use Carbon\CarbonInterface;
 use Illuminate\Database\Query\Builder;
 use Illuminate\Support\Facades\DB;
 
-class CashFlowReport
+final class CashFlowReport
 {
     /**
      * @return array{

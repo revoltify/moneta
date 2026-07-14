@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Models;
 
 use App\Concerns\GeneratesUniqueCompanySlugs;
@@ -22,7 +24,7 @@ use Illuminate\Support\Carbon;
  * @property Carbon|null $deleted_at
  */
 #[Fillable(['name', 'slug', 'timezone', 'currency'])]
-class Company extends Model
+final class Company extends Model
 {
     /** @use HasFactory<CompanyFactory> */
     use GeneratesUniqueCompanySlugs, HasFactory, SoftDeletes;
@@ -34,26 +36,6 @@ class Company extends Model
         'timezone' => 'Asia/Dhaka',
         'currency' => 'BDT',
     ];
-
-    /**
-     * Bootstrap the model and its traits.
-     */
-    protected static function boot(): void
-    {
-        parent::boot();
-
-        static::creating(function (Company $company) {
-            if (empty($company->slug)) {
-                $company->slug = static::generateUniqueCompanySlug($company->name);
-            }
-        });
-
-        static::updating(function (Company $company) {
-            if ($company->isDirty('name')) {
-                $company->slug = static::generateUniqueCompanySlug($company->name, $company->id);
-            }
-        });
-    }
 
     /**
      * @return HasMany<Wallet, $this>
@@ -101,5 +83,25 @@ class Company extends Model
     public function getRouteKeyName(): string
     {
         return 'slug';
+    }
+
+    /**
+     * Bootstrap the model and its traits.
+     */
+    protected static function boot(): void
+    {
+        parent::boot();
+
+        self::creating(function (Company $company) {
+            if (empty($company->slug)) {
+                $company->slug = static::generateUniqueCompanySlug($company->name);
+            }
+        });
+
+        self::updating(function (Company $company) {
+            if ($company->isDirty('name')) {
+                $company->slug = static::generateUniqueCompanySlug($company->name, $company->id);
+            }
+        });
     }
 }

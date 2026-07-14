@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\Finance\AuditLogController;
 use App\Http\Controllers\Finance\BudgetController;

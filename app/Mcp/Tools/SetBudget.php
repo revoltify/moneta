@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Mcp\Tools;
 
 use App\Enums\CategoryKind;
@@ -11,7 +13,7 @@ use Laravel\Mcp\Request;
 use Laravel\Mcp\Response;
 use Laravel\Mcp\Server\Tool;
 
-class SetBudget extends Tool
+final class SetBudget extends Tool
 {
     use InteractsWithCompany;
 

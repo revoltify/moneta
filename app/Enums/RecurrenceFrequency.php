@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Enums;
 
 enum RecurrenceFrequency: string
@@ -8,11 +10,6 @@ enum RecurrenceFrequency: string
     case Weekly = 'weekly';
     case Monthly = 'monthly';
     case Yearly = 'yearly';
-
-    public function label(): string
-    {
-        return ucfirst($this->value);
-    }
 
     /**
      * @return array<array{value: string, label: string}>
@@ -23,5 +20,10 @@ enum RecurrenceFrequency: string
             fn (self $frequency) => ['value' => $frequency->value, 'label' => $frequency->label()],
             self::cases(),
         );
+    }
+
+    public function label(): string
+    {
+        return ucfirst($this->value);
     }
 }

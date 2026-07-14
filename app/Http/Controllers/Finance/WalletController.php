@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers\Finance;
 
 use App\Actions\Wallets\ArchiveWallet;
@@ -20,7 +22,7 @@ use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Inertia\Response;
 
-class WalletController extends Controller
+final class WalletController extends Controller
 {
     public function index(Request $request, Company $current_company): Response
     {

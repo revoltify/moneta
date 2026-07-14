@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Mcp\Tools;
 
 use App\Mcp\Concerns\InteractsWithCompany;
@@ -13,7 +15,7 @@ use Laravel\Mcp\Server\Tool;
 use Laravel\Mcp\Server\Tools\Annotations\IsReadOnly;
 
 #[IsReadOnly]
-class GetCashFlow extends Tool
+final class GetCashFlow extends Tool
 {
     use InteractsWithCompany;
 

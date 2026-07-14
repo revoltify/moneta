@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers\Finance;
 
 use App\Http\Controllers\Controller;
@@ -10,7 +12,7 @@ use App\Models\Wallet;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
-class SearchController extends Controller
+final class SearchController extends Controller
 {
     public function index(Request $request, Company $current_company): JsonResponse
     {

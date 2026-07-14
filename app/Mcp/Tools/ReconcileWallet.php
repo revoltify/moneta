@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Mcp\Tools;
 
 use App\Actions\Wallets\ReconcileWallet as ReconcileWalletAction;
@@ -11,7 +13,7 @@ use Laravel\Mcp\Request;
 use Laravel\Mcp\Response;
 use Laravel\Mcp\Server\Tool;
 
-class ReconcileWallet extends Tool
+final class ReconcileWallet extends Tool
 {
     use InteractsWithCompany;
 

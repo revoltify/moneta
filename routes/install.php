@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use App\Http\Controllers\Install\InstallerController;
 use App\Http\Middleware\EnsureNotInstalled;
 use Illuminate\Support\Facades\Route;

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Models;
 
 use App\Concerns\BelongsToCompany;
@@ -24,7 +26,7 @@ use Illuminate\Support\Carbon;
  * @property-read Category $category
  */
 #[Fillable(['company_id', 'category_id', 'period', 'amount', 'alert_threshold', 'is_active'])]
-class Budget extends Model
+final class Budget extends Model
 {
     /** @use HasFactory<BudgetFactory> */
     use BelongsToCompany, HasFactory;

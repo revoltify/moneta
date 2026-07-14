@@ -1,10 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Requests\Install;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreDatabaseRequest extends FormRequest
+final class StoreDatabaseRequest extends FormRequest
 {
     public function authorize(): bool
     {

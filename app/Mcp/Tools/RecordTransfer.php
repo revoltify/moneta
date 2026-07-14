@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Mcp\Tools;
 
 use App\Actions\Transactions\CreateTransfer;
@@ -13,7 +15,7 @@ use Laravel\Mcp\Request;
 use Laravel\Mcp\Response;
 use Laravel\Mcp\Server\Tool;
 
-class RecordTransfer extends Tool
+final class RecordTransfer extends Tool
 {
     use InteractsWithCompany;
 

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Requests\Finance;
 
 use App\Http\Requests\Concerns\ResolvesCurrentCompany;
@@ -7,7 +9,7 @@ use App\Support\Money;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
-class SaveTransferRequest extends FormRequest
+final class SaveTransferRequest extends FormRequest
 {
     use ResolvesCurrentCompany;
 

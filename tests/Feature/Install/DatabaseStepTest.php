@@ -1,6 +1,7 @@
 <?php
 
-use App\Actions\Install\TestDatabaseConnection;
+declare(strict_types=1);
+
 use Illuminate\Support\Facades\File;
 
 beforeEach(function () {
@@ -59,15 +60,19 @@ test('the connection must be a supported driver', function () {
 });
 
 test('a working connection writes server credentials to the environment file', function () {
-    $this->mock(TestDatabaseConnection::class)
-        ->shouldReceive('handle')
-        ->once();
+    $database = $this->envDir.'/connection-test.sqlite';
+    touch($database);
+
+    config(['database.connections.mysql' => array_merge(
+        config('database.connections.sqlite'),
+        ['database' => $database],
+    )]);
 
     $this->post(route('install.database.store'), [
         'connection' => 'mysql',
         'host' => 'db.example.com',
         'port' => 3306,
-        'database' => 'moneta',
+        'database' => $database,
         'username' => 'moneta_user',
         'password' => 'secret pass',
     ])->assertRedirect(route('install.migrations'));
@@ -78,7 +83,7 @@ test('a working connection writes server credentials to the environment file', f
         ->toContain("DB_CONNECTION=mysql\n")
         ->toContain("DB_HOST=db.example.com\n")
         ->toContain("DB_PORT=3306\n")
-        ->toContain("DB_DATABASE=moneta\n")
+        ->toContain("DB_DATABASE={$database}\n")
         ->toContain("DB_USERNAME=moneta_user\n")
         ->toContain("DB_PASSWORD='secret pass'")
         ->not->toContain('# DB_HOST');

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Database\Seeders;
 
 use App\Actions\Budgets\EvaluateBudgetAlert;
@@ -18,7 +20,7 @@ use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Artisan;
 use RuntimeException;
 
-class DemoSeeder extends Seeder
+final class DemoSeeder extends Seeder
 {
     public function run(): void
     {

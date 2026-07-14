@@ -1,8 +1,10 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Support;
 
-class InstallationState
+final class InstallationState
 {
     public function installed(): bool
     {

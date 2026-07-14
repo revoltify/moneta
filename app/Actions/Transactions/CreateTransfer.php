@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Actions\Transactions;
 
 use App\Enums\TransactionStatus;
@@ -12,7 +14,7 @@ use Carbon\CarbonInterface;
 use Illuminate\Support\Facades\DB;
 use InvalidArgumentException;
 
-class CreateTransfer
+final class CreateTransfer
 {
     public function __construct(private ApplyTransactionBalance $applyBalance) {}
 

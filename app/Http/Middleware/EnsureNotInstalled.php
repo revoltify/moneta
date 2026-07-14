@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Middleware;
 
 use App\Models\User;
@@ -10,7 +12,7 @@ use Illuminate\Support\Facades\Schema;
 use Symfony\Component\HttpFoundation\Response;
 use Throwable;
 
-class EnsureNotInstalled
+final class EnsureNotInstalled
 {
     public function __construct(private InstallationState $state) {}
 

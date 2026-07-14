@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers;
 
 use App\Actions\Budgets\EvaluateBudgetAlert;
@@ -13,7 +15,7 @@ use Illuminate\Support\Carbon;
 use Inertia\Inertia;
 use Inertia\Response;
 
-class DashboardController extends Controller
+final class DashboardController extends Controller
 {
     public function __invoke(Request $request, Company $current_company, IncomeStatementReport $incomeStatement, CashFlowReport $cashFlow, EvaluateBudgetAlert $budgetEvaluator): Response
     {

@@ -1,12 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Actions\Transactions;
 
 use App\Enums\TransactionType;
 use App\Models\Transaction;
 use App\Models\Wallet;
 
-class ApplyTransactionBalance
+final class ApplyTransactionBalance
 {
     public function handle(Transaction $transaction, int $direction = 1): void
     {

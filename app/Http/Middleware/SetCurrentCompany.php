@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Middleware;
 
 use App\Models\Company;
@@ -7,7 +9,7 @@ use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class SetCurrentCompany
+final class SetCurrentCompany
 {
     /**
      * @param  Closure(Request): (Response)  $next
@@ -25,7 +27,7 @@ class SetCurrentCompany
         return $next($request);
     }
 
-    protected function company(Request $request): ?Company
+    private function company(Request $request): ?Company
     {
         $company = $request->route('current_company') ?? $request->route('company');
 

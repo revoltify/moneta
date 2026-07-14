@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Models;
 
 use App\Concerns\BelongsToCompany;
@@ -22,7 +24,7 @@ use Illuminate\Support\Carbon;
  * @property-read User|null $user
  */
 #[Fillable(['company_id', 'user_id', 'action', 'auditable_type', 'auditable_id', 'changes', 'created_at'])]
-class AuditLog extends Model
+final class AuditLog extends Model
 {
     use BelongsToCompany;
 

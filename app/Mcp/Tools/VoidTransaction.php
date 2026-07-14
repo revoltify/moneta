@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Mcp\Tools;
 
 use App\Actions\Transactions\VoidTransaction as VoidTransactionAction;
@@ -16,7 +18,7 @@ use Laravel\Mcp\Server\Tool;
 use Laravel\Mcp\Server\Tools\Annotations\IsDestructive;
 
 #[IsDestructive]
-class VoidTransaction extends Tool
+final class VoidTransaction extends Tool
 {
     use InteractsWithCompany;
 

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers\Companies;
 
 use App\Actions\Companies\CreateCompany;
@@ -8,6 +10,7 @@ use App\Http\Requests\Companies\DeleteCompanyRequest;
 use App\Http\Requests\Companies\SaveCompanyRequest;
 use App\Models\Company;
 use App\Support\Money;
+use DateTimeZone;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -16,7 +19,7 @@ use Illuminate\Validation\Rule;
 use Inertia\Inertia;
 use Inertia\Response;
 
-class CompanyController extends Controller
+final class CompanyController extends Controller
 {
     /**
      * Display a listing of the user's companies.
@@ -55,7 +58,7 @@ class CompanyController extends Controller
                 'timezone' => $company->timezone,
                 'currency' => $company->currency,
             ],
-            'timezones' => \DateTimeZone::listIdentifiers(),
+            'timezones' => DateTimeZone::listIdentifiers(),
             'currencies' => collect(Money::CURRENCIES)->map(fn (string $symbol, string $code) => [
                 'code' => $code,
                 'symbol' => trim($symbol),

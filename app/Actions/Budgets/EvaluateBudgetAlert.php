@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Actions\Budgets;
 
 use App\Enums\TransactionStatus;
@@ -12,7 +14,7 @@ use Carbon\CarbonInterface;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
 
-class EvaluateBudgetAlert
+final class EvaluateBudgetAlert
 {
     /**
      * @return array{message: string, level: string}|null
@@ -42,44 +44,6 @@ class EvaluateBudgetAlert
         return null;
     }
 
-    /**
-     * @return array{message: string, level: string}|null
-     */
-    private function evaluate(Company $company, Category $category, Budget $budget, CarbonInterface $date): ?array
-    {
-        $spent = $this->periodSpend($company, $category, $date, $budget->period);
-        $percent = (int) floor($spent * 100 / max(1, $budget->amount));
-        $periodLabel = ucfirst($budget->period);
-
-        if ($percent >= 100) {
-            return [
-                'message' => __(':category :period budget exceeded: :spent of :budget (:percent%)', [
-                    'category' => $category->name,
-                    'period' => strtolower($periodLabel),
-                    'spent' => Money::format($spent),
-                    'budget' => Money::format($budget->amount),
-                    'percent' => $percent,
-                ]),
-                'level' => 'error',
-            ];
-        }
-
-        if ($percent >= $budget->alert_threshold) {
-            return [
-                'message' => __(':category :period budget at :percent% (:spent of :budget)', [
-                    'category' => $category->name,
-                    'period' => strtolower($periodLabel),
-                    'percent' => $percent,
-                    'spent' => Money::format($spent),
-                    'budget' => Money::format($budget->amount),
-                ]),
-                'level' => 'warning',
-            ];
-        }
-
-        return null;
-    }
-
     public function periodSpend(Company $company, Category $category, CarbonInterface $date, string $period = 'monthly'): int
     {
         [$from, $to] = $this->periodWindow($date, $period);
@@ -100,6 +64,44 @@ class EvaluateBudgetAlert
     public function monthToDateSpend(Company $company, Category $category, CarbonInterface $date): int
     {
         return $this->periodSpend($company, $category, $date, 'monthly');
+    }
+
+    /**
+     * @return array{message: string, level: string}|null
+     */
+    private function evaluate(Company $company, Category $category, Budget $budget, CarbonInterface $date): ?array
+    {
+        $spent = $this->periodSpend($company, $category, $date, $budget->period);
+        $percent = (int) floor($spent * 100 / max(1, $budget->amount));
+        $periodLabel = ucfirst($budget->period);
+
+        if ($percent >= 100) {
+            return [
+                'message' => __(':category :period budget exceeded: :spent of :budget (:percent%)', [
+                    'category' => $category->name,
+                    'period' => mb_strtolower($periodLabel),
+                    'spent' => Money::format($spent),
+                    'budget' => Money::format($budget->amount),
+                    'percent' => $percent,
+                ]),
+                'level' => 'error',
+            ];
+        }
+
+        if ($percent >= $budget->alert_threshold) {
+            return [
+                'message' => __(':category :period budget at :percent% (:spent of :budget)', [
+                    'category' => $category->name,
+                    'period' => mb_strtolower($periodLabel),
+                    'percent' => $percent,
+                    'spent' => Money::format($spent),
+                    'budget' => Money::format($budget->amount),
+                ]),
+                'level' => 'warning',
+            ];
+        }
+
+        return null;
     }
 
     /**

@@ -1,11 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Actions\Categories;
 
 use App\Models\Category;
 use RuntimeException;
 
-class DeleteCategory
+final class DeleteCategory
 {
     public function handle(Category $category): void
     {

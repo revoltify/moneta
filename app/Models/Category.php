@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Models;
 
 use App\Concerns\BelongsToCompany;
@@ -30,7 +32,7 @@ use Illuminate\Support\Carbon;
  * @property-read Collection<int, Category> $children
  */
 #[Fillable(['company_id', 'parent_id', 'kind', 'name', 'icon', 'color', 'archived_at'])]
-class Category extends Model
+final class Category extends Model
 {
     /** @use HasFactory<CategoryFactory> */
     use BelongsToCompany, HasFactory;

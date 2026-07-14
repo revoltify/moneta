@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers\Install;
 
 use App\Actions\Install\CheckRequirements;
@@ -18,7 +20,7 @@ use Inertia\Inertia;
 use Inertia\Response;
 use Throwable;
 
-class InstallerController extends Controller
+final class InstallerController extends Controller
 {
     public function requirements(CheckRequirements $checkRequirements): Response
     {

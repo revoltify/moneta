@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Models;
 
 use App\Concerns\BelongsToCompany;
@@ -39,7 +41,7 @@ use Illuminate\Support\Carbon;
  * @property-read Category|null $category
  */
 #[Fillable(['company_id', 'name', 'type', 'wallet_id', 'counter_wallet_id', 'category_id', 'amount', 'currency', 'description', 'frequency', 'interval', 'day_of_month', 'starts_on', 'ends_on', 'next_run_on', 'last_run_on', 'is_active'])]
-class RecurringTransaction extends Model
+final class RecurringTransaction extends Model
 {
     /** @use HasFactory<RecurringTransactionFactory> */
     use BelongsToCompany, HasFactory;
