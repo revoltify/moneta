@@ -16,17 +16,24 @@ import {
 import { Spinner } from '@/components/ui/spinner';
 import { store } from '@/routes/install/database';
 
-const connections = [
-    { value: 'sqlite', label: 'SQLite', port: null },
-    { value: 'mysql', label: 'MySQL', port: '3306' },
-    { value: 'mariadb', label: 'MariaDB', port: '3306' },
-    { value: 'pgsql', label: 'PostgreSQL', port: '5432' },
-    { value: 'sqlsrv', label: 'SQL Server', port: '1433' },
-];
+const connectionMeta: Record<string, { label: string; port: string | null }> =
+    {
+        sqlite: { label: 'SQLite', port: null },
+        mysql: { label: 'MySQL', port: '3306' },
+        mariadb: { label: 'MariaDB', port: '3306' },
+        pgsql: { label: 'PostgreSQL', port: '5432' },
+        sqlsrv: { label: 'SQL Server', port: '1433' },
+    };
 
-export default function Database() {
-    const [connection, setConnection] = useState('sqlite');
-    const port = connections.find((c) => c.value === connection)?.port;
+type Props = {
+    connections: { value: string; extension: string; available: boolean }[];
+};
+
+export default function Database({ connections }: Props) {
+    const [connection, setConnection] = useState(
+        connections.find((option) => option.available)?.value ?? 'sqlite',
+    );
+    const port = connectionMeta[connection]?.port;
 
     return (
         <>
@@ -50,8 +57,12 @@ export default function Database() {
                                         <SelectItem
                                             key={option.value}
                                             value={option.value}
+                                            disabled={!option.available}
                                         >
-                                            {option.label}
+                                            {connectionMeta[option.value]
+                                                ?.label ?? option.value}
+                                            {!option.available &&
+                                                ` — ${option.extension} missing`}
                                         </SelectItem>
                                     ))}
                                 </SelectContent>

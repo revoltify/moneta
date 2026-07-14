@@ -54,6 +54,28 @@ test('server connections require host, port, database and username', function ()
         ->assertSessionHasErrors(['host', 'port', 'database', 'username']);
 });
 
+test('a connection whose extension is missing is rejected', function (): void {
+    config(['installer.drivers.mysql' => 'pdo_definitely_missing']);
+
+    $this->post(route('install.database.store'), [
+        'connection' => 'mysql',
+        'host' => '127.0.0.1',
+        'port' => 3306,
+        'database' => 'moneta',
+        'username' => 'moneta',
+    ])->assertSessionHasErrors('connection');
+});
+
+test('the database step lists connection availability', function (): void {
+    $this->get(route('install.database'))
+        ->assertOk()
+        ->assertInertia(fn ($page) => $page
+            ->component('install/database')
+            ->where('connections.0.value', 'sqlite')
+            ->where('connections.0.available', true)
+            ->has('connections', 5));
+});
+
 test('the connection must be a supported driver', function (): void {
     $this->post(route('install.database.store'), ['connection' => 'mongodb'])
         ->assertSessionHasErrors('connection');

@@ -35,7 +35,19 @@ final class InstallerController extends Controller
             return to_route('install.index');
         }
 
-        return Inertia::render('install/database');
+        /** @var array<string, string> $drivers */
+        $drivers = config('installer.drivers');
+
+        return Inertia::render('install/database', [
+            'connections' => collect($drivers)
+                ->map(fn (string $extension, string $connection): array => [
+                    'value' => $connection,
+                    'extension' => $extension,
+                    'available' => extension_loaded($extension),
+                ])
+                ->values()
+                ->all(),
+        ]);
     }
 
     public function storeDatabase(
