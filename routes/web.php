@@ -72,3 +72,4 @@ Route::prefix('{current_company}')
     });
 
 require __DIR__.'/settings.php';
+require __DIR__.'/install.php';

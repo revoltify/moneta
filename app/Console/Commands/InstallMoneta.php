@@ -2,10 +2,9 @@
 
 namespace App\Console\Commands;
 
-use App\Actions\Companies\CreateCompany;
+use App\Actions\Install\CreateAdminAccount;
 use App\Models\User;
 use Illuminate\Console\Command;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 
 class InstallMoneta extends Command
@@ -18,7 +17,7 @@ class InstallMoneta extends Command
 
     protected $description = 'Create the Moneta admin account and first company';
 
-    public function __construct(private CreateCompany $createCompany)
+    public function __construct(private CreateAdminAccount $createAdminAccount)
     {
         parent::__construct();
     }
@@ -54,15 +53,7 @@ class InstallMoneta extends Command
             return self::FAILURE;
         }
 
-        DB::transaction(function () use ($name, $email, $password, $companyName) {
-            $user = User::create([
-                'name' => $name,
-                'email' => $email,
-                'password' => $password,
-            ]);
-
-            $this->createCompany->handle($user, $companyName, isPersonal: true);
-        });
+        $this->createAdminAccount->handle($name, $email, $password, $companyName);
 
         $this->components->success("Admin account created for {$email}.");
         $this->components->success("Company \"{$companyName}\" created with default wallets and categories.");
