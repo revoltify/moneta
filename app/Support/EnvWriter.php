@@ -21,14 +21,16 @@ class EnvWriter
 
         foreach ($values as $key => $value) {
             $line = $key.'='.$this->format($value);
-            $pattern = '/^#?\s*'.preg_quote($key, '/').'=.*$/m';
+            $pattern = '/^#?\s*'.preg_quote($key, '/').'\s*=\s*.*$/m';
 
             $contents = preg_match($pattern, $contents)
                 ? (preg_replace($pattern, $line, $contents, 1) ?? $contents)
                 : rtrim($contents, "\n")."\n".$line."\n";
         }
 
-        file_put_contents($path, $contents);
+        if (file_put_contents($path, $contents) === false) {
+            throw new RuntimeException("Unable to write environment file at {$path}.");
+        }
     }
 
     private function format(?string $value): string
@@ -41,6 +43,6 @@ class EnvWriter
             return $value;
         }
 
-        return '"'.str_replace(['\\', '"'], ['\\\\', '\\"'], $value).'"';
+        return "'".str_replace(['\\', "'"], ['\\\\', "\\'"], $value)."'";
     }
 }

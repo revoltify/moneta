@@ -80,6 +80,6 @@ test('a working connection writes server credentials to the environment file', f
         ->toContain("DB_PORT=3306\n")
         ->toContain("DB_DATABASE=moneta\n")
         ->toContain("DB_USERNAME=moneta_user\n")
-        ->toContain('DB_PASSWORD="secret pass"')
+        ->toContain("DB_PASSWORD='secret pass'")
         ->not->toContain('# DB_HOST');
 });

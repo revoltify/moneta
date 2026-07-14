@@ -47,7 +47,27 @@ test('quotes values with spaces and special characters', function () {
 
     (new EnvWriter)->set(['DB_PASSWORD' => 'p@ss word"x'], $this->path);
 
-    expect(file_get_contents($this->path))->toContain('DB_PASSWORD="p@ss word\"x"');
+    expect(file_get_contents($this->path))->toContain("DB_PASSWORD='p@ss word\"x'");
+});
+
+test('matches keys with spaces around the equals sign', function () {
+    file_put_contents($this->path, "DB_HOST = 127.0.0.1\n");
+
+    (new EnvWriter)->set(['DB_HOST' => 'db.example.com'], $this->path);
+
+    $contents = file_get_contents($this->path);
+
+    expect($contents)
+        ->toContain("DB_HOST=db.example.com\n")
+        ->not->toContain('127.0.0.1');
+});
+
+test('single-quotes values so dotenv does not interpolate them', function () {
+    file_put_contents($this->path, "DB_PASSWORD=\n");
+
+    (new EnvWriter)->set(['DB_PASSWORD' => 'p@ss$word{x}'], $this->path);
+
+    expect(file_get_contents($this->path))->toContain("DB_PASSWORD='p@ss\$word{x}'");
 });
 
 test('writes an empty value for null', function () {

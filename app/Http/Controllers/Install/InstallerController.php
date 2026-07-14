@@ -58,7 +58,7 @@ class InstallerController extends Controller
             ]);
         }
 
-        $writeEnvironment->handle($connection, $overrides, $request->getSchemeAndHttpHost());
+        $writeEnvironment->handle($connection, $overrides, $request->root());
 
         return redirect()->route('install.migrations');
     }
