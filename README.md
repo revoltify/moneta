@@ -8,9 +8,11 @@
 
 ## About Moneta
 
-Moneta is a self-hosted money management app for small businesses and freelancers. Track income and expenses across wallets, watch budgets, and read clean financial reports — without accounting overhead. Single-user by design: your books, your server.
+Moneta is an AI-powered, self-hosted money management app for small businesses and freelancers. Track income and expenses across multiple wallets, manage budgets, and view clear financial reports—without the complexity of traditional accounting software.
 
-It ships with a built-in [MCP](https://modelcontextprotocol.io) server, so AI agents like Claude can record transactions and pull reports for you.
+Your books, Your server, Your data.
+
+Moneta includes a built-in [MCP](https://modelcontextprotocol.io) server, enabling AI agents such as Claude to record transactions, access financial data, and generate reports for you.
 
 ## Quick Start
 
@@ -32,7 +34,7 @@ Prefer Compose? Grab [`compose.yaml`](compose.yaml) and run `docker compose up -
 - Wallets with running-balance ledgers and one-click reconcile
 - Budgets with alert thresholds
 - Recurring transactions with catch-up
-- Reports: Income Statement, Balance Sheet, Cash Flow, Category Breakdown, Monthly Summary
+- Reports: Income Statement, Balance Sheet, Cash Flow, Category Breakdown, Daily & Monthly Summary
 - Multiple companies side by side, each with its own currency and timezone
 - AI agent access via MCP (26 tools) — OAuth or API tokens
 - Audit log, ⌘K global search, dark mode, 2FA and passkeys
