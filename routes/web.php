@@ -42,6 +42,7 @@ Route::prefix('{current_company}')
         Route::get('recurring', [RecurringTransactionController::class, 'index'])->name('recurring.index');
         Route::get('reports', [ReportController::class, 'index'])->name('reports.index');
         Route::get('reports/category-breakdown', [ReportController::class, 'categoryBreakdown'])->name('reports.category-breakdown');
+        Route::get('reports/daily-summary', [ReportController::class, 'dailySummary'])->name('reports.daily-summary');
         Route::get('reports/monthly-summary', [ReportController::class, 'monthlySummary'])->name('reports.monthly-summary');
         Route::get('reports/income-statement', [ReportController::class, 'incomeStatement'])->name('reports.income-statement');
         Route::get('reports/balance-sheet', [ReportController::class, 'balanceSheet'])->name('reports.balance-sheet');

@@ -12,12 +12,18 @@ import ChartTooltip from '@/components/finance/charts/chart-tooltip';
 import { useCurrency } from '@/hooks/use-currency';
 
 type Point = {
-    month: string;
     income: number;
     expense: number;
+    [key: string]: string | number;
 };
 
-export default function IncomeExpenseChart({ data }: { data: Point[] }) {
+export default function IncomeExpenseChart({
+    data,
+    xKey = 'month',
+}: {
+    data: Point[];
+    xKey?: string;
+}) {
     const { symbol } = useCurrency();
 
     return (
@@ -33,7 +39,7 @@ export default function IncomeExpenseChart({ data }: { data: Point[] }) {
                     strokeDasharray="3 3"
                 />
                 <XAxis
-                    dataKey="month"
+                    dataKey={xKey}
                     tickLine={false}
                     axisLine={false}
                     tick={{ fill: 'var(--muted-foreground)', fontSize: 12 }}

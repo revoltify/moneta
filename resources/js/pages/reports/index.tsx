@@ -1,5 +1,6 @@
 import { Head, Link, usePage } from '@inertiajs/react';
 import {
+    CalendarDays,
     CalendarRange,
     ChartColumn,
     ChartPie,
@@ -12,6 +13,7 @@ import {
     balanceSheet,
     cashFlow,
     categoryBreakdown,
+    dailySummary,
     incomeStatement,
     index,
     monthlySummary,
@@ -54,6 +56,13 @@ export default function ReportsIndex() {
                 'Where money goes — spending or income share per category with a chart.',
             href: categoryBreakdown(slug),
             icon: ChartPie,
+        },
+        {
+            title: 'Daily Summary',
+            description:
+                'Last 30 days side by side: income, expense and profit per day.',
+            href: dailySummary(slug),
+            icon: CalendarDays,
         },
         {
             title: 'Monthly Summary',

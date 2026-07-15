@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\Finance;
 
+use App\Enums\TransactionStatus;
+use App\Enums\TransactionType;
 use App\Http\Controllers\Controller;
 use App\Models\Company;
 use App\Services\Reports\BalanceSheetReport;
@@ -12,6 +14,7 @@ use App\Services\Reports\IncomeStatementReport;
 use Carbon\CarbonInterface;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Date;
+use Illuminate\Support\Facades\DB;
 use Inertia\Inertia;
 use Inertia\Response;
 
@@ -35,6 +38,48 @@ final class ReportController extends Controller
             'kind' => $kind,
             'from' => $from->toDateString(),
             'to' => $to->toDateString(),
+        ]);
+    }
+
+    public function dailySummary(Request $request, Company $current_company): Response
+    {
+        $today = now($current_company->timezone)->startOfDay();
+        $from = $today->copy()->subDays(29);
+
+        $sums = DB::table('transactions')
+            ->where('company_id', $current_company->id)
+            ->where('status', TransactionStatus::Posted->value)
+            ->where('currency', $current_company->currency)
+            ->whereIn('type', [TransactionType::Income->value, TransactionType::Expense->value])
+            ->whereDate('date', '>=', $from->toDateString())
+            ->whereDate('date', '<=', $today->toDateString())
+            ->groupBy('date', 'type')
+            ->selectRaw('date, type, COALESCE(SUM(amount), 0) as total')
+            ->get()
+            ->groupBy(fn (object $row): string => Date::parse($row->date)->toDateString());
+
+        $days = collect(range(29, 0))->map(function (int $daysAgo) use ($today, $sums): array {
+            $day = $today->copy()->subDays($daysAgo);
+            $rows = $sums->get($day->toDateString(), collect());
+            $income = (int) ($rows->firstWhere('type', TransactionType::Income->value)->total ?? 0);
+            $expense = (int) ($rows->firstWhere('type', TransactionType::Expense->value)->total ?? 0);
+
+            return [
+                'date' => $day->toDateString(),
+                'day' => $day->format('d M'),
+                'income' => $income,
+                'expense' => $expense,
+                'profit' => $income - $expense,
+            ];
+        });
+
+        return Inertia::render('reports/daily-summary', [
+            'days' => $days,
+            'totals' => [
+                'income' => $days->sum('income'),
+                'expense' => $days->sum('expense'),
+                'profit' => $days->sum('profit'),
+            ],
         ]);
     }
 

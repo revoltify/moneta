@@ -62,6 +62,29 @@ test('a voided transaction never appears in reports', function (): void {
     expect($report['totalIncome'])->toBe(0);
 });
 
+test('the daily summary reports the last 30 days per day', function (): void {
+    [$user, $company, $bank, $cash, $commission, $hosting] = reportSetup();
+
+    resolve(CreateTransaction::class)->handle($company, TransactionType::Income, $bank, 500_000, now(), $commission);
+    resolve(CreateTransaction::class)->handle($company, TransactionType::Expense, $cash, 120_000, now(), $hosting);
+    resolve(CreateTransaction::class)->handle($company, TransactionType::Income, $bank, 200_000, now()->subDay(), $commission);
+    resolve(CreateTransaction::class)->handle($company, TransactionType::Income, $bank, 900_000, now()->subDays(45), $commission);
+
+    $this->actingAs($user)
+        ->get(route('reports.daily-summary', ['current_company' => $company->slug]))
+        ->assertOk()
+        ->assertInertia(fn (AssertableInertia $page): AssertableInertia => $page
+            ->component('reports/daily-summary')
+            ->has('days', 30)
+            ->where('days.29.income', 500_000)
+            ->where('days.29.expense', 120_000)
+            ->where('days.29.profit', 380_000)
+            ->where('days.28.income', 200_000)
+            ->where('totals.income', 700_000)
+            ->where('totals.expense', 120_000)
+            ->where('totals.profit', 580_000));
+});
+
 test('the balance sheet satisfies assets equal equity', function (): void {
     [$user, $company, $bank, $cash, $commission, $hosting] = reportSetup();
 
