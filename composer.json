@@ -58,6 +58,14 @@
             "npm install",
             "npm run build"
         ],
+        "moneta:upgrade": [
+            "Composer\\Config::disableProcessTimeout",
+            "composer install",
+            "@php artisan migrate --force",
+            "@php artisan optimize:clear",
+            "npm install",
+            "npm run build"
+        ],
         "dev": [
             "Composer\\Config::disableProcessTimeout",
             "@php artisan dev"

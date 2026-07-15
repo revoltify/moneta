@@ -81,6 +81,12 @@ Same default login as Docker: `admin@admin.com` / `12345678`, or pass your own:
 php artisan moneta:install --name="Jane" --email="jane@example.com" --password="strong-password" --company="Acme"
 ```
 
+To upgrade a manual install:
+
+```bash
+git pull && composer run moneta:upgrade   # deps, migrations, cache clear, frontend build
+```
+
 ---
 
 ## Connect an AI agent (MCP)
