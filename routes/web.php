@@ -17,7 +17,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', fn(): RedirectResponse => redirect(auth()->check() ? '/dashboard' : '/login'))->name('home');
+Route::get('/', fn (): RedirectResponse => redirect(auth()->check() ? '/dashboard' : '/login'))->name('home');
 
 Route::get('dashboard', function (Request $request) {
     $company = $request->user()->currentCompany ?? $request->user()->fallbackCompany();
