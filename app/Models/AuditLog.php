@@ -5,8 +5,10 @@ declare(strict_types=1);
 namespace App\Models;
 
 use App\Concerns\BelongsToCompany;
+use Database\Factories\AuditLogFactory;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Attributes\WithoutTimestamps;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
@@ -29,6 +31,9 @@ use Illuminate\Support\Carbon;
 final class AuditLog extends Model
 {
     use BelongsToCompany;
+
+    /** @use HasFactory<AuditLogFactory> */
+    use HasFactory;
 
     /**
      * @return BelongsTo<User, $this>

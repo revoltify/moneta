@@ -10,7 +10,6 @@ use App\Enums\RecurrenceFrequency;
 use App\Enums\TransactionType;
 use App\Models\RecurringTransaction;
 use Carbon\CarbonInterface;
-use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\DB;
 
@@ -103,10 +102,10 @@ final readonly class ProcessRecurringTransactions
         );
     }
 
-    private function advance(RecurringTransaction $recurring, CarbonInterface $from): Carbon
+    private function advance(RecurringTransaction $recurring, CarbonInterface $from): CarbonInterface
     {
         $interval = max(1, $recurring->interval);
-        $next = Carbon::parse($from);
+        $next = Date::parse($from);
 
         return match ($recurring->frequency) {
             RecurrenceFrequency::Daily => $next->addDays($interval),
@@ -116,7 +115,7 @@ final readonly class ProcessRecurringTransactions
         };
     }
 
-    private function advanceMonthly(Carbon $from, int $interval, ?int $dayOfMonth): Carbon
+    private function advanceMonthly(CarbonInterface $from, int $interval, ?int $dayOfMonth): CarbonInterface
     {
         $next = $from->addMonthsNoOverflow($interval);
 

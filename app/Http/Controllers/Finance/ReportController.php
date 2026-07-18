@@ -43,7 +43,7 @@ final class ReportController extends Controller
 
     public function dailySummary(Request $request, Company $current_company): Response
     {
-        $today = now($current_company->timezone)->startOfDay();
+        $today = today($current_company->timezone);
         $from = $today->copy()->subDays(29);
 
         $sums = DB::table('transactions')

@@ -25,7 +25,7 @@ final class StoreDatabaseRequest extends FormRequest
                 'string',
                 'in:sqlite,mysql,mariadb,pgsql,sqlsrv',
                 function (string $attribute, mixed $value, Closure $fail): void {
-                    $extension = config("installer.drivers.{$value}");
+                    $extension = config('installer.drivers.'.$value);
 
                     if (is_string($extension) && ! extension_loaded($extension)) {
                         $fail(__('The :extension PHP extension is not enabled on this server.', ['extension' => $extension]));
