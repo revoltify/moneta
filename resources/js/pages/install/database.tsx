@@ -16,14 +16,13 @@ import {
 import { Spinner } from '@/components/ui/spinner';
 import { store } from '@/routes/install/database';
 
-const connectionMeta: Record<string, { label: string; port: string | null }> =
-    {
-        sqlite: { label: 'SQLite', port: null },
-        mysql: { label: 'MySQL', port: '3306' },
-        mariadb: { label: 'MariaDB', port: '3306' },
-        pgsql: { label: 'PostgreSQL', port: '5432' },
-        sqlsrv: { label: 'SQL Server', port: '1433' },
-    };
+const connectionMeta: Record<string, { label: string; port: string | null }> = {
+    sqlite: { label: 'SQLite', port: null },
+    mysql: { label: 'MySQL', port: '3306' },
+    mariadb: { label: 'MariaDB', port: '3306' },
+    pgsql: { label: 'PostgreSQL', port: '5432' },
+    sqlsrv: { label: 'SQL Server', port: '1433' },
+};
 
 type Props = {
     connections: { value: string; extension: string; available: boolean }[];
@@ -73,9 +72,9 @@ export default function Database({ connections }: Props) {
                         {connection === 'sqlite' ? (
                             <Alert>
                                 <AlertDescription>
-                                    SQLite needs no configuration — the
-                                    database file is created automatically in
-                                    the storage directory.
+                                    SQLite needs no configuration — the database
+                                    file is created automatically in the storage
+                                    directory.
                                 </AlertDescription>
                             </Alert>
                         ) : (
@@ -127,9 +126,7 @@ export default function Database({ connections }: Props) {
                                             name="username"
                                             required
                                         />
-                                        <InputError
-                                            message={errors.username}
-                                        />
+                                        <InputError message={errors.username} />
                                     </div>
                                     <div className="grid gap-2">
                                         <Label htmlFor="password">
@@ -140,9 +137,7 @@ export default function Database({ connections }: Props) {
                                             name="password"
                                             autoComplete="new-password"
                                         />
-                                        <InputError
-                                            message={errors.password}
-                                        />
+                                        <InputError message={errors.password} />
                                     </div>
                                 </div>
                             </>

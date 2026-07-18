@@ -33,9 +33,7 @@ export default function InstallLayout({
                         <CardTitle className="text-xl">{title}</CardTitle>
                         <CardDescription>{description}</CardDescription>
                     </CardHeader>
-                    <CardContent className="px-10 py-8">
-                        {children}
-                    </CardContent>
+                    <CardContent className="px-10 py-8">{children}</CardContent>
                 </Card>
             </div>
         </div>
