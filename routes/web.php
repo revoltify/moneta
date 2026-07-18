@@ -17,7 +17,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', fn (): RedirectResponse => redirect(auth()->check() ? '/dashboard' : '/login'))->name('home');
+Route::get('/', fn(): RedirectResponse => redirect(auth()->check() ? '/dashboard' : '/login'))->name('home');
 
 Route::get('dashboard', function (Request $request) {
     $company = $request->user()->currentCompany ?? $request->user()->fallbackCompany();
@@ -72,6 +72,3 @@ Route::prefix('{current_company}')
         Route::patch('categories/{category}/archive', [CategoryController::class, 'archive'])->name('categories.archive');
         Route::delete('categories/{category}', [CategoryController::class, 'destroy'])->name('categories.destroy');
     });
-
-require __DIR__.'/settings.php';
-require __DIR__.'/install.php';
